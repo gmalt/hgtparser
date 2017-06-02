@@ -15,8 +15,8 @@ setup(
     license="MIT",
     keywords="parser, hgt, srtm, file",
     url="http://github.com/gmalt/hgtparser",
-    packages=find_packages(exclude=["test"]),
-    long_description=read('README.md'),
+    packages=find_packages(exclude=["*.test", "*.test.*", "test.*", "test"]),
+    long_description=read('README.rst'),
     extras_require={
         'test': ['pytest', 'flake8', 'mock']
     },
