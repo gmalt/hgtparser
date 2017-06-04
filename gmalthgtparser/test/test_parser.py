@@ -123,6 +123,24 @@ class TestHgtParser(object):
         )
         assert srtm1_hgt._get_corners_from_filename((0, 10)) == corners
 
+    def test_custom_width_height_file(self, srtm3_hgt_path):
+        parser = hgt.HgtParser(srtm3_hgt_path, width=50, height=25)
+        assert parser.sample_lng == 50
+        assert parser.sample_lat == 25
+        assert parser.square_width == Fraction('1/49')
+        assert parser.square_height == Fraction('1/24')
+        assert parser.area_width == Fraction('50/49')
+        assert parser.area_height == Fraction('25/24')
+        assert parser.bottom_left_center == (Fraction(0, 1), Fraction(10, 1))
+        assert parser.corners == ((Fraction(-1, 48), Fraction(979, 98)),
+                                  (Fraction(49, 48), Fraction(979, 98)),
+                                  (Fraction(49, 48), Fraction(1079, 98)),
+                                  (Fraction(-1, 48), Fraction(1079, 98)))
+        assert parser.top_left_square == ((Fraction(47, 48), Fraction(979, 98)),
+                                          (Fraction(49, 48), Fraction(979, 98)),
+                                          (Fraction(49, 48), Fraction(981, 98)),
+                                          (Fraction(47, 48), Fraction(981, 98)))
+
     def test_is_inside(self, srtm3_hgt):
         assert srtm3_hgt.is_inside((0.5, 10.5))
         assert srtm3_hgt.is_inside((0.1, 10.9))

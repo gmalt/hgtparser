@@ -18,11 +18,13 @@ class HgtParser(object):
             parser.get_elevation((lat, lng))
 
     :param str filepath: the path to the HGT file to parse
+    :param int width: provide the number of columns if not standard HGT squared file
+    :param int width: provide the number of lines if not standard HGT squared file
     """
 
     VOID_VALUE = -32768
 
-    def __init__(self, filepath):
+    def __init__(self, filepath, width=None, height=None):
         if not os.path.exists(filepath):
             raise Exception('file {} not found'.format(filepath))
 
@@ -31,8 +33,8 @@ class HgtParser(object):
         self.filename = os.path.basename(filepath)
         sample = int(math.sqrt(os.path.getsize(filepath) / 2))
 
-        self.sample_lat = sample
-        self.sample_lng = sample
+        self.sample_lat = height or sample
+        self.sample_lng = width or sample
 
         # the width (length on the longitude axis) of a square providing one elevation value
         self.square_width = fractions.Fraction(1, self.sample_lng - 1)
@@ -278,7 +280,7 @@ class HgtValueIterator(HgtBaseIterator):
     :param parser: a HgtParser instance
     :type parser: :class:`gmalthgtparser.parser.HgtParser`
     :param bool as_float: if True converts fraction to float
-    :return: tuple with (zero based line number, zero based column number, zero based index, 
+    :return: tuple with (zero based line number, zero based column number, zero based index,
     square corners of the elevation value, elevation value)
     :rtype: (int, int, int, ((float, float), (float, float), (float, float), (float, float)), int)
     """
