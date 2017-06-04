@@ -278,8 +278,8 @@ class HgtValueIterator(HgtBaseIterator):
     :param parser: a HgtParser instance
     :type parser: :class:`gmalthgtparser.parser.HgtParser`
     :param bool as_float: if True converts fraction to float
-    :return: tuple with (line number, column number, zero based index, square corners of the elevation value,
-    elevation value)
+    :return: tuple with (zero based line number, zero based column number, zero based index, 
+    square corners of the elevation value, elevation value)
     :rtype: (int, int, int, ((float, float), (float, float), (float, float), (float, float)), int)
     """
     def __init__(self, parser, as_float=True):
@@ -307,7 +307,7 @@ class HgtValueIterator(HgtBaseIterator):
             line, col = divmod(current_idx, self.parser.sample_lng)
             square = self.parser.shift_first_square(line, col)
             self.idx += 1
-            return line + 1, col + 1, current_idx, self.format_corners(square), self.parser.get_value(current_idx)
+            return line, col, current_idx, self.format_corners(square), self.parser.get_value(current_idx)
         raise StopIteration()
 
 
@@ -319,7 +319,7 @@ class HgtSampleIterator(HgtBaseIterator):
     :param int width: width of the sample area
     :param int height: height of the sample area
     :param bool as_float: if True converts fraction to float
-    :return: tuple with (line number of top left corner, column number of top left corner,
+    :return: tuple with (zero based line number of top left corner, zero based column number of top left corner,
     zero based index of top left corner, square corners position, list of all elevation values in square line per line)
     :rtype: (int, int, int, ((float, float), (float, float), (float, float), (float, float)), int[][)
     """

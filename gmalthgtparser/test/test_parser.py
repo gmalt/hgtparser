@@ -189,13 +189,13 @@ class TestHgtValueIterator(object):
             values = list(parser.get_value_iterator())
 
             assert len(values) == 1442401
-            assert (1, 1, 0,
+            assert (0, 0, 0,
                     ((0.9995833333333334, 9.999583333333334),
                      (1.0004166666666667, 9.999583333333334),
                      (1.0004166666666667, 10.000416666666666),
                      (0.9995833333333334, 10.000416666666666)),
                     57) == values[0]
-            assert (3, 1054, 3455,
+            assert (2, 1053, 3455,
                     ((0.9979166666666667, 10.877083333333333),
                      (0.99875, 10.877083333333333),
                      (0.99875, 10.877916666666666),
@@ -205,7 +205,7 @@ class TestHgtValueIterator(object):
     def test_iter_not_as_float(self, srtm3_hgt):
         with srtm3_hgt as parser:
             value = next(iter(parser.get_value_iterator(as_float=False)))
-            assert (1, 1, 0,
+            assert (0, 0, 0,
                     ((Fraction(2399, 2400), Fraction(23999, 2400)),
                      (Fraction(2401, 2400), Fraction(23999, 2400)),
                      (Fraction(2401, 2400), Fraction(24001, 2400)),
