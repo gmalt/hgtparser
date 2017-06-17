@@ -1,4 +1,4 @@
-GmAlt HGT file parser
+gmalt HGT file parser
 =====================
 
 .. image:: https://travis-ci.org/gmalt/hgtparser.svg?branch=master
